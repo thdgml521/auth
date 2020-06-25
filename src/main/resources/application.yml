@@ -1,0 +1,31 @@
+spring:
+  profiles=: local
+
+logging:
+  config: classpath:development/logback.xml
+  level:
+    org.springframework: debug
+    com.genie: debug
+
+---
+
+spring:
+  profiles: dev
+
+logging:
+  config: classpath:development/logback.xml
+  level:
+    org.springframework: debug
+    com.genie: debug
+
+---
+
+spring:
+  profiles: prod
+
+logging:
+  config: classpath:production/logback.xml
+  level:
+    org.springframework: info
+    com.genie: info
+

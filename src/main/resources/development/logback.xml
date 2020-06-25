@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <property name="CONTEXT_NAME" value="genie-auth" />
+
+    <appender name="SERVICE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/app_logs/${CONTEXT_NAME}.log</file>
+        <encoder>
+            <Pattern>{"timestamp":"%d{yyyyMMdd HH:mm:ss.SSS}", "level":"%-5level", "package":"%logger{36}"}, %msg%n</Pattern>
+        </encoder>
+
+        <!-- 일별 로깅 정책 gzip으로 압축 하도록 함  -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/data/app_logs/%d{yyyyMMdd}.${CONTEXT_NAME}.svc.gz</FileNamePattern>
+            <MaxHistory>10</MaxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.genie"				level="INFO" additivity="false"><appender-ref ref="SERVICE_LOG"/></logger>
+    <logger name="org.springframework"		level="INFO" additivity="false"><appender-ref ref="SERVICE_LOG"/></logger>
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="SERVICE_LOG" />
+    </root>
+
+</configuration>
